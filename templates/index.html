@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <title>Складское приложение</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Левое меню с категориями -->
+        <aside class="categories">
+            <ul>
+                {% for category in categories %}
+                <li>{{ category }}</li>
+                {% endfor %}
+            </ul>
+        </aside>
+
+        <!-- Основная часть с поиском и карточками товаров -->
+        <main>
+            <div class="search-bar">
+                <input type="text" placeholder="Поиск товаров..." id="search-input">
+            </div>
+            <div class="product-grid">
+                {% for product in products %}
+                <div class="product-card {% if product.quantityAvailable == 0 %}out-of-stock{% endif %}">
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description }}</p>
+                    <p>Остаток: {{ product.quantityAvailable }}</p>
+                    <button>Добавить в корзину</button>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+    </div>
+</body>
+</html>
